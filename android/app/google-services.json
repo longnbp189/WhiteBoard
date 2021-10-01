@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "546664115615",
+    "project_id": "whiteboardswd",
+    "storage_bucket": "whiteboardswd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546664115615:android:e74b6dac356fb5a73da1aa",
+        "android_client_info": {
+          "package_name": "com.example.whiteboard_swd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546664115615-r5c6dfrhinuputajvg4etf1mtcoiocuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFU1SOc_ZFeZ8SR5FqXlK8BzNhDrrgZi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546664115615-r5c6dfrhinuputajvg4etf1mtcoiocuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
