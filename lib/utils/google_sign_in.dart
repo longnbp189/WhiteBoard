@@ -33,12 +33,15 @@ class GoogleSignInProvider extends ChangeNotifier {
 
     var user = await FirebaseAuth.instance.signInWithCredential(credential);
     var u = await FirebaseAuth.instance.currentUser!.getIdToken();
-    print(await user.user!.getIdToken());
     notifyListeners();
   }
 
   Future logout() async {
     await googleSignIn.disconnect();
     FirebaseAuth.instance.signOut();
+  }
+
+  Future<String> getTokenId() async {
+    return await FirebaseAuth.instance.currentUser!.getIdToken();
   }
 }

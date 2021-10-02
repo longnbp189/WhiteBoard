@@ -8,20 +8,37 @@ class LoggedIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Logged In'),
+        title: Text("Log in"),
         centerTitle: true,
       ),
-      body: TextButton(
-          onPressed: () {
-            final provider =
-                Provider.of<GoogleSignInProvider>(context, listen: false);
-            provider.logout();
-          },
-          child: Text(
-            'Logout',
-          )),
+      body: Column(
+        children: [
+          // Text(provider.getTokenId().then((value) => value.toString()) ),
+          // FutureBuilder<String>(
+          //   builder: (context, value) {
+          //     return Container(
+          //         child: TextFormField(
+          //             maxLines: 35,
+          //             controller:
+          //                 TextEditingController(text: value.data.toString())));
+          //   },
+          //   future: provider.getTokenId(),
+          // ),
+          TextButton(
+              onPressed: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.logout();
+              },
+              child: Text(
+                'Logout',
+              )),
+        ],
+      ),
     );
   }
 }
