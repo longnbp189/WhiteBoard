@@ -5,6 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
   bool? isSigningIn;
+  static const String url =
+      'https://ec2-13-228-168-85.ap-southeast-1.compute.amazonaws.com/api​/v1.0​/reviewers​/authenticate';
 
   GoogleSignInProvider() {
     isSigningIn = false;
@@ -31,8 +33,9 @@ class GoogleSignInProvider extends ChangeNotifier {
       idToken: googleAuth.idToken,
     );
 
-    var user = await FirebaseAuth.instance.signInWithCredential(credential);
+    await FirebaseAuth.instance.signInWithCredential(credential);
     var u = await FirebaseAuth.instance.currentUser!.getIdToken();
+
     notifyListeners();
   }
 

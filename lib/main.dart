@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:whiteboard_swd/utils/google_sign_in.dart';
+import 'package:whiteboard_swd/presenters/google_sign_in.dart';
 import 'package:whiteboard_swd/views/home_screen.dart';
 import 'package:whiteboard_swd/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Widget Demo',
-          home: HomePage(),
+          home: Controller(),
         ),
       );
 }
