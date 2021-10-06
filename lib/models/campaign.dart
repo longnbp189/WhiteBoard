@@ -1,5 +1,6 @@
 import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:intl/intl.dart';
+import 'package:whiteboard_swd/models/university.dart';
 
 class Campaign {
   String? id;
@@ -8,10 +9,11 @@ class Campaign {
   String? startDay;
   String? endDay;
   String? image;
-  String? school;
+  String? university;
   String? campus;
 
   List<Criteria>? campaignCriteria;
+  List<UniversityOfCompaign>? unis;
 
   Campaign(
       {this.campaignCriteria,
@@ -19,10 +21,11 @@ class Campaign {
       this.endDay,
       this.id,
       this.image,
-      this.school,
+      this.university,
       this.campus,
       this.name,
-      this.startDay});
+      this.startDay,
+      this.unis});
 
   Campaign.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -31,13 +34,18 @@ class Campaign {
     startDay = json['startDay'];
     endDay = json['endDay'];
     image = json['image'];
-    school = json['school'];
+    university = json['university'];
     campus = json['campus'];
 
     var list = json['campaignCriteria'] as List;
     List<Criteria> criteriaList =
         list.map((e) => Criteria.fromJson(e)).toList();
     campaignCriteria = criteriaList;
+
+    var listU = json['campaignOns'] as List;
+    List<UniversityOfCompaign> uList =
+        listU.map((e) => UniversityOfCompaign.fromJson(e)).toList();
+    unis = uList;
   }
 
   Map<String, dynamic> toJson() {
@@ -48,7 +56,7 @@ class Campaign {
     data['startDay'] = this.startDay;
     data['endDay'] = this.endDay;
     data['image'] = this.image;
-    data['school'] = this.school;
+    data['university'] = this.university;
     data['campus'] = this.campus;
 
     return data;
@@ -60,4 +68,14 @@ String parseDate(String? datetime) {
   String formattedDate = DateFormat('dd/MM/yyyy').format(dt);
 
   return formattedDate;
+}
+
+class Campaigns {
+  List<Campaign>? listCampaign;
+
+  Campaigns.fromJson(Map<String, dynamic> json) {
+    var list = json['campaigns'] as List;
+    List<Campaign> campaigns = list.map((e) => Campaign.fromJson(e)).toList();
+    listCampaign = campaigns;
+  }
 }

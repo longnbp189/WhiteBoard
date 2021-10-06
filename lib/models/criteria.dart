@@ -8,7 +8,7 @@ class Criteria {
   });
 
   Criteria.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
+    id = json['criteria']['id'];
+    name = json['criteria']['name'];
   }
 }

@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+    // final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
 
     return SafeArea(

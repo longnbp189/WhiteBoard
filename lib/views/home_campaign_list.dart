@@ -12,204 +12,229 @@ class CampaignList extends StatefulWidget {
 }
 
 class _CampaignListState extends State<CampaignList> {
-  List<Campaign> campaignData = [];
+  List<Campaign>? campaignData = [];
 
   @override
   void initState() {
     super.initState();
     NetworkRequest.getAllCampaign().then((dataFromServer) {
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'sinh hoat'),
-            Criteria(name: 'hoat dong'),
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            // Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
-      dataFromServer.add(Campaign(
-          image:
-              'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
-          school: 'FPT',
-          campus: 'HCM',
-          name: 'quan su',
-          description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
-          endDay: '2021-09-01T00:00:00',
-          campaignCriteria: [
-            Criteria(name: 'moi truong'),
-            Criteria(name: 'co so vat chat'),
-          ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://hcmuni.fpt.edu.vn/Data/Sites/1/media/kho%E1%BA%A3nh-kh%E1%BA%AFc-%C4%91%E1%BB%9Di-l%C3%ADnh/72211011_1369286846561085_7354137037672284160_o.jpg',
+      //     university: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'Quân sự',
+      //     description:
+      //         'Hãy miêu tả 1 kỷ niệm đẹp của bạn trong khoảng thời gian học quân sự.',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'sinh hoạt'),
+      //       Criteria(name: 'hoạt động'),
+      //       Criteria(name: 'môi trường'),
+      //       Criteria(name: 'cở sở vật chất'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://hcmuni.fpt.edu.vn/Data/Sites/1/media/kho%E1%BA%A3nh-kh%E1%BA%AFc-%C4%91%E1%BB%9Di-l%C3%ADnh/72211011_1369286846561085_7354137037672284160_o.jpg',
+      //     university: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'Quân sự',
+      //     description:
+      //         'Hãy miêu tả 1 kỷ niệm đẹp của bạn trong khoảng thời gian học quân sự.',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'môi trường'),
+      //       Criteria(name: 'cở sở vật chất'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://hcmuni.fpt.edu.vn/Data/Sites/1/media/kho%E1%BA%A3nh-kh%E1%BA%AFc-%C4%91%E1%BB%9Di-l%C3%ADnh/72211011_1369286846561085_7354137037672284160_o.jpg',
+      //     university: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'Quân sự',
+      //     description:
+      //         'Hãy miêu tả 1 kỷ niệm đẹp của bạn trong khoảng thời gian học quân sự.',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       // Criteria(name: 'moi truong'),
+      //       Criteria(name: 'cở sở vật chất'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
+      //     school: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'quan su',
+      //     description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'moi truong'),
+      //       Criteria(name: 'co so vat chat'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
+      //     school: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'quan su',
+      //     description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'moi truong'),
+      //       Criteria(name: 'co so vat chat'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
+      //     school: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'quan su',
+      //     description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'moi truong'),
+      //       Criteria(name: 'co so vat chat'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
+      //     school: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'quan su',
+      //     description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'moi truong'),
+      //       Criteria(name: 'co so vat chat'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
+      //     school: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'quan su',
+      //     description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'moi truong'),
+      //       Criteria(name: 'co so vat chat'),
+      //     ]));
+      // dataFromServer.add(Campaign(
+      //     image:
+      //         'https://cover.talk.zdn.vn/8/7/c/9/9/4be6fd7b52591b31928ae75200c5e561.jpg',
+      //     school: 'FPT',
+      //     campus: 'HCM',
+      //     name: 'quan su',
+      //     description: 'aksjdbhsasdasdasdjkashdjkashkdjahsjkdasdasdasdasdasd',
+      //     endDay: '2021-09-01T00:00:00',
+      //     campaignCriteria: [
+      //       Criteria(name: 'moi truong'),
+      //       Criteria(name: 'co so vat chat'),
+      //     ]));
       setState(() {
         campaignData = dataFromServer;
       });
     });
   }
 
+  // List<Widget> criteriaList(List<Criteria>? campaignCriteria) {
+  //   List<Widget> criList = [];
+  //   if (campaignCriteria!.length == 1) {
+  //     criList.add(Padding(
+  //       padding: const EdgeInsets.only(right: 5),
+  //       child: Container(
+  //         padding: EdgeInsets.all(1),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(width: 1),
+  //         ),
+  //         child: Text(
+  //           campaignCriteria[0].name.toString(),
+  //           style: TextStyle(fontSize: 12),
+  //         ),
+  //       ),
+  //     ));
+  //   } else if (campaignCriteria[0].name!.length +
+  //           campaignCriteria[1].name!.length <=
+  //       18) {
+  //     criList.add(Padding(
+  //       padding: const EdgeInsets.only(right: 5),
+  //       child: Container(
+  //         padding: EdgeInsets.all(1),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(width: 1),
+  //         ),
+  //         child: Text(
+  //           campaignCriteria[0].name.toString(),
+  //           style: TextStyle(fontSize: 12),
+  //         ),
+  //       ),
+  //     ));
+
+  //     criList.add(Padding(
+  //       padding: const EdgeInsets.only(right: 5),
+  //       child: Container(
+  //         padding: EdgeInsets.all(1),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(width: 1),
+  //         ),
+  //         child: Text(campaignCriteria[1].name.toString(),
+  //             style: TextStyle(fontSize: 12)),
+  //       ),
+  //     ));
+  //     if (campaignCriteria.length > 2) {
+  //       criList.add(Container(
+  //         padding: EdgeInsets.all(1),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(width: 1),
+  //         ),
+  //         child: Text('+' + (campaignCriteria.length - 2).toString(),
+  //             style: TextStyle(fontSize: 12)),
+  //       ));
+  //     }
+  //   } else {
+  //     criList.add(Padding(
+  //       padding: const EdgeInsets.only(right: 5),
+  //       child: Container(
+  //         padding: EdgeInsets.all(1),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(width: 1),
+  //         ),
+  //         child: Text(
+  //           campaignCriteria[0].name.toString(),
+  //           style: TextStyle(fontSize: 12),
+  //         ),
+  //       ),
+  //     ));
+  //     criList.add(Container(
+  //       padding: EdgeInsets.all(1),
+  //       decoration: BoxDecoration(
+  //         border: Border.all(width: 1),
+  //       ),
+  //       child: Text('+' + (campaignCriteria.length - 1).toString(),
+  //           style: TextStyle(fontSize: 12)),
+  //     ));
+  //   }
+  //   return criList;
+  // }
+
   List<Widget> criteriaList(List<Criteria>? campaignCriteria) {
     List<Widget> criList = [];
-    if (campaignCriteria!.length == 1) {
-      criList.add(Padding(
-        padding: const EdgeInsets.only(right: 5),
-        child: Container(
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1),
-          ),
-          child: Text(
-            campaignCriteria[0].name.toString(),
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ));
-    } else if (campaignCriteria[0].name!.length +
-            campaignCriteria[1].name!.length <=
-        18) {
-      criList.add(Padding(
-        padding: const EdgeInsets.only(right: 5),
-        child: Container(
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1),
-          ),
-          child: Text(
-            campaignCriteria[0].name.toString(),
-            style: TextStyle(fontSize: 12),
+    for (var i = 0; i < campaignCriteria!.length; i++) {
+      criList.add(
+        Padding(
+          padding: const EdgeInsets.only(right: 5, bottom: 5),
+          child: Container(
+            padding: EdgeInsets.all(1),
+            decoration: BoxDecoration(
+              border: Border.all(width: 1),
+            ),
+            child: Text(
+              campaignCriteria[i].name.toString(),
+              style: TextStyle(fontSize: 12),
+            ),
           ),
         ),
-      ));
-
-      criList.add(Padding(
-        padding: const EdgeInsets.only(right: 5),
-        child: Container(
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1),
-          ),
-          child: Text(campaignCriteria[1].name.toString(),
-              style: TextStyle(fontSize: 12)),
-        ),
-      ));
-      if (campaignCriteria.length > 2) {
-        criList.add(Container(
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1),
-          ),
-          child: Text('+' + (campaignCriteria.length - 2).toString(),
-              style: TextStyle(fontSize: 12)),
-        ));
-      }
-    } else {
-      criList.add(Padding(
-        padding: const EdgeInsets.only(right: 5),
-        child: Container(
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1),
-          ),
-          child: Text(
-            campaignCriteria[0].name.toString(),
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ));
-      criList.add(Container(
-        padding: EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1),
-        ),
-        child: Text('+' + (campaignCriteria.length - 1).toString(),
-            style: TextStyle(fontSize: 12)),
-      ));
+      );
     }
     return criList;
   }
@@ -217,17 +242,17 @@ class _CampaignListState extends State<CampaignList> {
   List<Widget> campaignList() {
     final size = MediaQuery.of(context).size;
     List<Widget> list = [];
-    for (var i = 0; i < campaignData.length; i++) {
+    for (var i = 0; i < campaignData!.length; i++) {
       list.add(Container(
-        height: size.height * 0.333,
-        width: size.width * 0.5 - 18,
+        height: size.height * 0.37,
+        width: size.width * 0.8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           border: Border.all(width: 1),
         ),
         child: Column(
           children: [
-            if (campaignData[i].image.toString() != '')
+            if (campaignData![i].image.toString() != '')
               Container(
                 height: size.height * 0.16,
                 decoration: BoxDecoration(
@@ -236,11 +261,11 @@ class _CampaignListState extends State<CampaignList> {
                       topRight: Radius.circular(5)),
                   image: DecorationImage(
                     image: NetworkImage(
-                      campaignData[i].image != null
-                          ? campaignData[i].image.toString()
+                      campaignData![i].image != null
+                          ? campaignData![i].image.toString()
                           : 'https://kenh14cdn.com/thumb_w/600/pr/2020/photo-1-159188526439782241575-0-39-870-1431-crop-1591885573914-63727516282294.jpg',
                     ),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -251,15 +276,15 @@ class _CampaignListState extends State<CampaignList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        campaignData[i].school.toString() +
+                        campaignData![i].unis![0].universityName.toString() +
                             ' - ' +
-                            campaignData[i].campus.toString(),
+                            campaignData![i].unis![0].campusName.toString(),
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                         )),
                     Text(
-                      campaignData[i].name.toString(),
+                      campaignData![i].name.toString(),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -272,7 +297,7 @@ class _CampaignListState extends State<CampaignList> {
                       height: 5,
                     ),
                     Text(
-                      campaignData[i].description.toString(),
+                      campaignData![i].description.toString(),
                       style: TextStyle(
                         color: grey_text,
                         fontSize: 14,
@@ -283,11 +308,15 @@ class _CampaignListState extends State<CampaignList> {
                     SizedBox(
                       height: 5,
                     ),
-                    Row(
-                      children: (campaignData[i].campaignCriteria!.length > 0)
-                          ? criteriaList(campaignData[i].campaignCriteria)
-                          : [SizedBox()],
-                    ),
+                    // Row(
+                    //   children: (campaignData[i].campaignCriteria!.length > 0)
+                    //       ? criteriaList(campaignData[i].campaignCriteria)
+                    //       : [SizedBox()],
+                    // ),
+                    Wrap(
+                        direction: Axis.horizontal,
+                        children:
+                            criteriaList(campaignData![i].campaignCriteria)),
                     SizedBox(
                       height: 5,
                     ),
@@ -295,7 +324,7 @@ class _CampaignListState extends State<CampaignList> {
                       children: [
                         Expanded(child: SizedBox()),
                         Text(
-                          'Hạn chót: ' + parseDate(campaignData[i].endDay),
+                          'Hạn chót: ' + parseDate(campaignData![i].endDay),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 12,
