@@ -18,7 +18,9 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           bottom: PreferredSize(
             child: HomeSearchBar(),
-            preferredSize: Size.fromHeight(60),
+            //edit searchbar height
+            //haltse
+            preferredSize: Size.fromHeight(45),
           ),
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
@@ -29,6 +31,7 @@ class HomePage extends StatelessWidget {
             title: Text('asdasd'),
           ),
           backgroundColor: Colors.white,
+          
           title: Text(
             'Xin chào, ' + user.displayName.toString(),
             style: TextStyle(

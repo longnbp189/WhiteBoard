@@ -19,11 +19,12 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(bottom: 5),
-                height: size.height * 0.08,
+                padding: EdgeInsets.only(bottom: 10),
+                height: size.height * 0.07,
                 child: TextFormField(
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(top: 5),
                     hintText: "Tìm kiếm tên chiến dịch",
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
@@ -34,8 +35,11 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
             ),
             IconButton(
                 onPressed: () {},
+                padding: EdgeInsets.only(bottom: 10),
                 icon: Icon(
-                  Icons.filter_alt_outlined,
+                  //haltse
+                  //change icon and so on :>
+                  Icons.filter_list_rounded,
                   size: 30,
                 ))
           ],

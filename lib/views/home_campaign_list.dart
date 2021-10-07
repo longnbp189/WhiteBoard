@@ -3,6 +3,7 @@ import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/utils/color.dart';
 import 'package:whiteboard_swd/presenters/network_request.dart';
+import 'package:whiteboard_swd/views/campaign_details.dart';
 
 class CampaignList extends StatefulWidget {
   const CampaignList({Key? key}) : super(key: key);
@@ -243,100 +244,137 @@ class _CampaignListState extends State<CampaignList> {
     final size = MediaQuery.of(context).size;
     List<Widget> list = [];
     for (var i = 0; i < campaignData!.length; i++) {
-      list.add(Container(
-        height: size.height * 0.37,
-        width: size.width * 0.8,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(width: 1),
-        ),
-        child: Column(
-          children: [
-            if (campaignData![i].image.toString() != '')
-              Container(
-                height: size.height * 0.16,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                      topRight: Radius.circular(5)),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      campaignData![i].image != null
-                          ? campaignData![i].image.toString()
-                          : 'https://kenh14cdn.com/thumb_w/600/pr/2020/photo-1-159188526439782241575-0-39-870-1431-crop-1591885573914-63727516282294.jpg',
+      list.add(
+          //HaLTSE
+          //change container to inkwell for interaction
+          //add onTap()
+          InkWell(
+        borderRadius: BorderRadius.circular(5),
+        splashColor: dart_blue,
+        highlightColor: white_blue_white,
+
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => CampaignDetails(
+                  campaign: campaignData![i]) //send param using constructor
+              ));
+        },
+        //haltse removed these locs
+        // height: size.height * 0.37,
+        // width: size.width * 0.8,
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(5),
+        //   border: Border.all(width: 1),
+        // ),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+          width: size.width - 2 * 10, //padding = 10
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.7), //color of shadow
+                spreadRadius: 3, //spread radius
+                blurRadius: 7, // blur radius
+                offset: Offset(0, 2), // changes position of shadow
+                //first paramerter of offset is left-right
+                //second parameter is top to down
+              ),
+              //you can set more BoxShadow() here
+            ],
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              if (campaignData![i].image.toString() != '')
+                Container(
+                  // width: size.width - 20,
+                  height: size.height * 0.16,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        campaignData![i].image != null
+                            ? campaignData![i].image.toString()
+                            : 'https://kenh14cdn.com/thumb_w/600/pr/2020/photo-1-159188526439782241575-0-39-870-1431-crop-1591885573914-63727516282294.jpg',
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
+                  ),
+                ),
+
+              //color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          campaignData![i].unis![0].universityName.toString() +
+                              ' - ' +
+                              campaignData![i].unis![0].campusName.toString(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          )),
+                      Text(
+                        campaignData![i].name.toString(),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        campaignData![i].description.toString(),
+                        style: TextStyle(
+                          color: grey_text,
+                          fontSize: 14,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      // Row(
+                      //   children: (campaignData[i].campaignCriteria!.length > 0)
+                      //       ? criteriaList(campaignData[i].campaignCriteria)
+                      //       : [SizedBox()],
+                      // ),
+                      Wrap(
+                          direction: Axis.horizontal,
+                          children:
+                              criteriaList(campaignData![i].campaignCriteria)),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(child: SizedBox()),
+                          Text(
+                            'Hạn chót: ' + parseDate(campaignData![i].endDay),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        campaignData![i].unis![0].universityName.toString() +
-                            ' - ' +
-                            campaignData![i].unis![0].campusName.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        )),
-                    Text(
-                      campaignData![i].name.toString(),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      campaignData![i].description.toString(),
-                      style: TextStyle(
-                        color: grey_text,
-                        fontSize: 14,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    // Row(
-                    //   children: (campaignData[i].campaignCriteria!.length > 0)
-                    //       ? criteriaList(campaignData[i].campaignCriteria)
-                    //       : [SizedBox()],
-                    // ),
-                    Wrap(
-                        direction: Axis.horizontal,
-                        children:
-                            criteriaList(campaignData![i].campaignCriteria)),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(child: SizedBox()),
-                        Text(
-                          'Hạn chót: ' + parseDate(campaignData![i].endDay),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ));
     }
@@ -378,18 +416,22 @@ class _CampaignListState extends State<CampaignList> {
     //   ),
     // );
     return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Center(
-          child: Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            direction: Axis.horizontal,
-            children: campaignList(),
+        scrollDirection: Axis.vertical,
+        //haltse
+        //wrap padding with container to add background color :>
+        child: Container(
+          color: white_blue_white,
+          child: Padding(
+            padding: const EdgeInsets.all(13),
+            child: Center(
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 20,
+                direction: Axis.horizontal,
+                children: campaignList(),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

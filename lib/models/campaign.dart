@@ -2,6 +2,7 @@ import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:intl/intl.dart';
 import 'package:whiteboard_swd/models/university.dart';
 
+
 class Campaign {
   String? id;
   String? name;
@@ -61,14 +62,25 @@ class Campaign {
 
     return data;
   }
-}
 
+ 
+  
+}
 String parseDate(String? datetime) {
-  DateTime dt = DateTime.parse(datetime!);
-  String formattedDate = DateFormat('dd/MM/yyyy').format(dt);
+    DateTime dt = DateTime.parse(datetime!);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(dt);
 
-  return formattedDate;
-}
+    return formattedDate;
+  }
+
+  int compareDate(String? campaignEndDate,  d2){
+    DateTime d1 = DateTime.parse(campaignEndDate!);
+    final formatter = DateFormat('dd/MM/yyyy');
+    return d1.compareTo(d2);
+    // d1 = DateTime.parse(campaignEndDate!);
+    
+    //return d1.compareTo(d2);
+  }
 
 class Campaigns {
   List<Campaign>? listCampaign;
