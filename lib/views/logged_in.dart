@@ -58,6 +58,37 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
+// =======
+//       child: Scaffold(
+//         appBar: AppBar(
+//           bottom: PreferredSize(
+//             child: HomeSearchBar(),
+//             //edit searchbar height
+//             //haltse
+//             preferredSize: Size.fromHeight(45),
+//           ),
+//           flexibleSpace: FlexibleSpaceBar(
+//             background: Container(
+//               height: 50,
+//               width: 50,
+//             ),
+//             collapseMode: CollapseMode.pin,
+//             title: Text('asdasd'),
+//           ),
+//           backgroundColor: Colors.white,
+
+//           title: Text(
+//             'Xin chào, ' + user.displayName.toString(),
+//             style: TextStyle(
+//                 color: Colors.black,
+//                 fontWeight: FontWeight.normal,
+//                 fontSize: 18),
+//           ),
+//         ),
+//         body: Container(
+//           child: CampaignList(),
+//         ),
+// >>>>>>> master
       ),
     );
   }

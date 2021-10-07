@@ -66,7 +66,17 @@ class Campaign {
 String parseDate(String? datetime) {
   DateTime dt = DateTime.parse(datetime!);
   String formattedDate = DateFormat('dd/MM/yyyy').format(dt);
+
   return formattedDate;
+}
+
+int compareDate(String? campaignEndDate, d2) {
+  DateTime d1 = DateTime.parse(campaignEndDate!);
+  final formatter = DateFormat('dd/MM/yyyy');
+  return d1.compareTo(d2);
+  // d1 = DateTime.parse(campaignEndDate!);
+
+  //return d1.compareTo(d2);
 }
 
 class Campaigns {
