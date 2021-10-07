@@ -56,10 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: size.height * 0.06,
                 width: size.width - 100,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final provider = Provider.of<GoogleSignInProvider>(context,
                         listen: false);
-                    provider.googleLogin();
+                    await provider.googleLogin();
                   },
                   style: ButtonStyle(
                       backgroundColor:

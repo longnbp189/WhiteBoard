@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whiteboard_swd/components/bottom_tab.dart';
+import 'package:whiteboard_swd/presenters/google_sign_in.dart';
 import 'package:whiteboard_swd/views/login_screen.dart';
 
 class Controller extends StatelessWidget {

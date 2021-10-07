@@ -15,8 +15,9 @@ class NetworkRequest {
     return campaigns.listCampaign;
   }
 
-  static Future<List<Campaign>?> getAllCampaign() async {
-    final response = await http.get(Uri.parse(url + '/campaigns/search'));
+  static Future<List<Campaign>?> getAllCampaign(String universityId) async {
+    final response = await http
+        .get(Uri.parse(url + '/campaigns/search/?universityid=$universityId'));
     if (response.statusCode == 200) {
       return parseCampaign(response.body);
     } else

@@ -66,7 +66,6 @@ class Campaign {
 String parseDate(String? datetime) {
   DateTime dt = DateTime.parse(datetime!);
   String formattedDate = DateFormat('dd/MM/yyyy').format(dt);
-
   return formattedDate;
 }
 
