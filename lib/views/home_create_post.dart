@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whiteboard_swd/components/bottom_tab.dart';
 import 'package:whiteboard_swd/components/chip_custom_create_post.dart';
-import 'package:whiteboard_swd/components/dialog_create_post.dart';
+import 'package:whiteboard_swd/views/success_create_post.dart';
 import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/presenters/post_request.dart';
