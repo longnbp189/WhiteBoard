@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/utils/color.dart';
-import 'package:whiteboard_swd/presenters/network_request.dart';
+import 'package:whiteboard_swd/presenters/campaign_request.dart';
 import 'package:whiteboard_swd/views/home_create_post.dart';
 import 'package:whiteboard_swd/views/campaign_details.dart';
 
@@ -146,10 +147,11 @@ class _CampaignListState extends State<CampaignList> {
                         topRight: Radius.circular(10)),
                     image: DecorationImage(
                       image: NetworkImage(
-                        campaignData[i].image != null
-                            ? campaignData[i].image.toString()
-                            : 'https://kenh14cdn.com/thumb_w/600/pr/2020/photo-1-159188526439782241575-0-39-870-1431-crop-1591885573914-63727516282294.jpg',
-                      ),
+                          // campaignData[i].image != null
+                          // ?
+                          campaignData[i].image.toString()
+                          // : 'https://kenh14cdn.com/thumb_w/600/pr/2020/photo-1-159188526439782241575-0-39-870-1431-crop-1591885573914-63727516282294.jpg',
+                          ),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -162,14 +164,29 @@ class _CampaignListState extends State<CampaignList> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          campaignData[i].unis![0].universityName.toString() +
-                              ' - ' +
-                              campaignData[i].unis![0].campusName.toString(),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          )),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              child: Text(
+                                  campaignData[i].universityName.toString() +
+                                      ' - ' +
+                                      campaignData[i].campusName.toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  )),
+                            ),
+                          ),
+                          if (campaignData[i].flag!)
+                            Icon(
+                              FontAwesomeIcons.flag,
+                              color: Colors.red,
+                              size: 16,
+                            )
+                        ],
+                      ),
+
                       Text(
                         campaignData[i].name.toString(),
                         style: TextStyle(
@@ -180,6 +197,7 @@ class _CampaignListState extends State<CampaignList> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
+
                       SizedBox(
                         height: 5,
                       ),
@@ -233,40 +251,9 @@ class _CampaignListState extends State<CampaignList> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   child: Expanded(
-    //     child: ListView.builder(
-    //       padding: EdgeInsets.all(10),
-    //       itemCount: campaignData.length,
-    //       itemBuilder: (context, index) {
-    //         return Card(
-    //           child: Padding(
-    //             padding: EdgeInsets.all(10),
-    //             child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.start,
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   '${campaignData[index].description}',
-    //                   style: TextStyle(fontSize: 16, color: Colors.black),
-    //                 ),
-    //                 SizedBox(
-    //                   height: 10,
-    //                 ),
-    //                 Text(
-    //                   campaignData[index].name.toString(),
-    //                   style: TextStyle(fontSize: 16, color: Colors.black),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         );
-    //       },
-    //     ),
-    //   ),
-    // );
     return FutureBuilder<List<Campaign>?>(
-      future: NetworkRequest.getAllCampaign(widget.universityId),
+      future:
+          NetworkRequest.getAllCampaign(widget.universityId, widget.reviewerId),
       builder: (context, snapshot) {
         if (snapshot.data != null) {
           return SingleChildScrollView(

@@ -17,7 +17,6 @@ class CampaignDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final formatter = DateFormat('dd/MM/yyyy');
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: white_blue),

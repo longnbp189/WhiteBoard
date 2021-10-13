@@ -41,7 +41,7 @@ class GoogleSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Reviewer> getInfo() async {
+  Future<Reviewer?> getInfo() async {
     var user = FirebaseAuth.instance.currentUser!;
     Map<String, String> headers = {"Content-type": "application/json"};
     Map<String, dynamic> body = new Map<String, dynamic>();
@@ -54,13 +54,15 @@ class GoogleSignInProvider extends ChangeNotifier {
 
     final response = await http.post(Uri.parse(url),
         headers: headers, body: jsonEncode(body));
-    var reviewer;
+    Reviewer? reviewer;
     if (response.statusCode == 200) {
       Map<String, dynamic> body = json.decode(response.body);
       reviewer = Reviewer.fromJson(body);
       reviewer.avatar = user.photoURL!;
       reviewer.name = user.displayName!;
-      // final prefs = await SharedPreferences.getInstance();
+
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('reviewerId', reviewer.id.toString());
       // prefs.setString('info', response.body);
       // prefs.setString('info', jsonEncode(response.body));
     } else {

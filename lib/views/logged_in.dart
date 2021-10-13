@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     // final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
     // final size = MediaQuery.of(context).size;
     return SafeArea(
-      child: FutureBuilder<Reviewer>(
+      child: FutureBuilder<Reviewer?>(
         future: GoogleSignInProvider().getInfo(),
         builder: (context, value) {
           if (value.connectionState == ConnectionState.waiting) {
