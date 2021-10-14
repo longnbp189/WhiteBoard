@@ -5,62 +5,60 @@ import 'package:whiteboard_swd/models/university.dart';
 class Campaign {
   String? id;
   String? name;
-  String? description;
+  String? campusName;
   String? startDay;
   String? endDay;
   String? image;
   String? university;
-  String? campus;
+  String? description;
+  String? universityName;
+  bool? flag;
 
   List<Criteria>? campaignCriteria;
-  List<UniversityOfCompaign>? unis;
 
-  Campaign(
-      {this.campaignCriteria,
-      this.description,
-      this.endDay,
-      this.id,
-      this.image,
-      this.university,
-      this.campus,
-      this.name,
-      this.startDay,
-      this.unis});
+  Campaign({
+    this.campaignCriteria,
+    this.campusName,
+    this.endDay,
+    this.id,
+    this.image,
+    this.description,
+    this.universityName,
+    this.university,
+    this.name,
+    this.flag,
+    this.startDay,
+  });
 
   Campaign.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    campusName = json['campusName'];
     description = json['description'];
     startDay = json['startDay'];
     endDay = json['endDay'];
     image = json['image'];
-    university = json['university'];
-    campus = json['campus'];
+    universityName = json['universityName'];
+    flag = false;
 
-    var list = json['campaignCriteria'] as List;
+    var list = json['criterions'] as List;
     List<Criteria> criteriaList =
         list.map((e) => Criteria.fromJson(e)).toList();
     campaignCriteria = criteriaList;
-
-    var listU = json['campaignOns'] as List;
-    List<UniversityOfCompaign> uList =
-        listU.map((e) => UniversityOfCompaign.fromJson(e)).toList();
-    unis = uList;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['startDay'] = this.startDay;
-    data['endDay'] = this.endDay;
-    data['image'] = this.image;
-    data['university'] = this.university;
-    data['campus'] = this.campus;
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['id'] = this.id;
+  //   data['name'] = this.name;
+  //   data['description'] = this.description;
+  //   data['startDay'] = this.startDay;
+  //   data['endDay'] = this.endDay;
+  //   data['image'] = this.image;
+  //   data['university'] = this.university;
 
-    return data;
-  }
+  //   return data;
+  // }
 }
 
 String parseDate(String? datetime) {

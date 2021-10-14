@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // child: FutureBuilder(
       // builder: ,
       // future: Fu,
-      child: FutureBuilder<Reviewer>(
+      child: FutureBuilder<Reviewer?>(
         future: GoogleSignInProvider().getInfo(),
         builder: (context, value) {
           if (value.hasData) {
