@@ -100,15 +100,13 @@ class _CreatePostState extends State<CreatePost> {
                               currentStep -= 1;
                               check1 = 0;
                             }),
-                    controlsBuilder: (context, {onStepContinue, onStepCancel}) {
+                    controlsBuilder: (context, details) {
                       // setState(() {
                       //   check1 = 0;
                       // });
                       final isLastStep =
                           currentStep == getSteps(context).length - 1;
-                      return Container(
-                        margin: EdgeInsets.only(top: 50),
-                        child: Row(
+                      return Row(
                           children: [
                             Expanded(
                               child: ElevatedButton(
@@ -118,7 +116,7 @@ class _CreatePostState extends State<CreatePost> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                onPressed: onStepCancel,
+                                onPressed: details.onStepCancel,
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -134,7 +132,7 @@ class _CreatePostState extends State<CreatePost> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      onPressed: onStepContinue,
+                                      onPressed: details.onStepContinue,
                                     )
                                   : Container(
                                       height: 37,
@@ -164,9 +162,9 @@ class _CreatePostState extends State<CreatePost> {
                             ),
                             // if (currentStep != 0)
                           ],
-                        ),
-                      );
-                    }),
+                        );
+                    }
+                    ),
               ),
       ),
     );
