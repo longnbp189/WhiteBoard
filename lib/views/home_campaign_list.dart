@@ -97,7 +97,7 @@ class _CampaignListState extends State<CampaignList> {
           //change container to inkwell for interaction
           //add onTap()
           InkWell(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10),
         splashColor: dart_blue,
         highlightColor: white_blue_white,
 
@@ -123,9 +123,9 @@ class _CampaignListState extends State<CampaignList> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.7), //color of shadow
+                color: white_blue.withOpacity(0.2), //color of shadow
                 spreadRadius: 3, //spread radius
-                blurRadius: 7, // blur radius
+                blurRadius: 5, // blur radius
                 offset: Offset(0, 2), // changes position of shadow
                 //first paramerter of offset is left-right
                 //second parameter is top to down
@@ -261,11 +261,11 @@ class _CampaignListState extends State<CampaignList> {
             child: Container(
               color: white_blue_white,
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(15),
                 child: Center(
                   child: Wrap(
                     spacing: 12,
-                    runSpacing: 12,
+                    runSpacing: 22,
                     direction: Axis.horizontal,
                     children: campaignList(
                         snapshot.data!, widget.reviewerId, widget.token),

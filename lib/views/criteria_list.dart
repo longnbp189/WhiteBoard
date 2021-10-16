@@ -15,12 +15,13 @@ List<Widget> createCriteriaList(List<Criteria>? campaignCriteria, double iFontSi
           child: Container(
             padding: EdgeInsets.all(iFontSize*0.25),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(3),
+              color: Colors.black87,
+              //borderRadius: BorderRadius.circular(3),
               border: Border.all(width: 1),
             ),
             child: Text(
               campaignCriteria[i].name.toString(),
-              style: TextStyle(fontSize: iFontSize),
+              style: TextStyle(fontSize: iFontSize, color: Colors.white),
             ),
           ),
         ),
