@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whiteboard_swd/components/tab_bar.dart';
 import 'package:whiteboard_swd/utils/color.dart';
 import 'package:whiteboard_swd/views/logged_in.dart';
 import 'package:whiteboard_swd/views/notification_screen.dart';
@@ -16,7 +17,7 @@ class _BottomTabState extends State<BottomTab> {
   int currentTab = 0;
   final List<Widget> screens = [
     HomePage(),
-    PostPage(),
+    TabbedAppBarDemo(),
     NotificationPage(),
     ProfilePage()
   ];
@@ -75,7 +76,7 @@ class _BottomTabState extends State<BottomTab> {
                     minWidth: 30,
                     onPressed: () {
                       setState(() {
-                        currentScreen = PostPage();
+                        currentScreen = TabbedAppBarDemo();
                         currentTab = 1;
                       });
                     },

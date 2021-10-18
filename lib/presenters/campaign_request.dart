@@ -30,9 +30,14 @@ class NetworkRequest {
             }
           }
         }
+        parseCampaignList
+            .sort((a, b) => toDate(b.startDay!).compareTo(toDate(a.startDay!)));
         return parseCampaignList;
       } else {
-        return parseCampaign(response.body);
+        var result = parseCampaign(response.body);
+        result!
+            .sort((a, b) => toDate(b.startDay!).compareTo(toDate(a.startDay!)));
+        return result;
       }
     } else
       throw Exception('Not Found');

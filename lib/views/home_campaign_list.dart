@@ -164,6 +164,9 @@ class _CampaignListState extends State<CampaignList> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 5,
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -174,19 +177,21 @@ class _CampaignListState extends State<CampaignList> {
                                       campaignData[i].campusName.toString(),
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14,
+                                    fontSize: 16,
                                   )),
                             ),
                           ),
                           if (campaignData[i].flag!)
                             Icon(
-                              FontAwesomeIcons.flag,
-                              color: Colors.red,
+                              FontAwesomeIcons.checkCircle,
+                              color: Colors.green,
                               size: 16,
                             )
                         ],
                       ),
-
+                      SizedBox(
+                        height: 5,
+                      ),
                       Text(
                         campaignData[i].name.toString(),
                         style: TextStyle(
@@ -211,7 +216,7 @@ class _CampaignListState extends State<CampaignList> {
                         maxLines: 2,
                       ),
                       SizedBox(
-                        height: 5,
+                        height: 10,
                       ),
                       // Row(
                       //   children: (campaignData[i].campaignCriteria!.length > 0)

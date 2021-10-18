@@ -68,6 +68,11 @@ String parseDate(String? datetime) {
   return formattedDate;
 }
 
+DateTime toDate(String datetime) {
+  DateTime dt = DateTime.parse(datetime);
+  return dt;
+}
+
 int compareDate(String? campaignEndDate, d2) {
   DateTime d1 = DateTime.parse(campaignEndDate!);
   final formatter = DateFormat('dd/MM/yyyy');

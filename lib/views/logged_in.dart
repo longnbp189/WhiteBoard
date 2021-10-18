@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
           } else if (value.data != null) {
             return Scaffold(
               appBar: AppBar(
+                leadingWidth: 0,
                 bottom: PreferredSize(
                   child: HomeSearchBar(),
                   preferredSize: Size.fromHeight(60),

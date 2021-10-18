@@ -26,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
           if (value.hasData) {
             return Scaffold(
               appBar: AppBar(
+                  leadingWidth: 0,
                   backgroundColor: Colors.white,
                   leading: null,
                   title: Text(
@@ -154,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Column(
                         children: [
-                          Text(value.data!.waitingReviews.toString(),
+                          Text(value.data!.unpublishedReviews.toString(),
                               style: TextStyle(fontSize: 20)),
                           SizedBox(
                             width: 10,

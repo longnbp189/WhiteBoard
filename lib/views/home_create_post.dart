@@ -1,6 +1,14 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:whiteboard_swd/components/bottom_tab.dart';
+import 'package:whiteboard_swd/components/button_upload_file.dart';
 import 'package:whiteboard_swd/components/chip_custom_create_post.dart';
+import 'package:whiteboard_swd/components/image_picker.dart';
+import 'package:whiteboard_swd/presenters/firebaseApi.dart';
 import 'package:whiteboard_swd/views/success_create_post.dart';
 import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
@@ -23,16 +31,22 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  File? file;
+  UploadTask? task;
+
   int currentStep = 0;
   bool isCompleted = false;
   int check1 = 0;
   List<Map<String, dynamic>> criteria = [];
   TextEditingController titleController = TextEditingController()..text = '';
   TextEditingController contentController = TextEditingController()..text = '';
+  List<XFile>? listImage;
+  List<Map<String, dynamic>> listImages = [];
 
   void callback(int num, String id) {
     Map<String, dynamic> map = new Map<String, dynamic>();
-    map['campaignCriteriaId'] = id;
+    map['criterionId'] = id;
+    map['rating'] = 4;
     setState(() {
       if (num > 0) {
         criteria.add(map);
@@ -41,6 +55,29 @@ class _CreatePostState extends State<CreatePost> {
       }
       check1 += num;
     });
+  }
+
+  void callbackImage(List<XFile> list) {
+    setState(() {
+      listImage = list;
+    });
+  }
+
+  Future uploadFile() async {
+    if (listImage == null) return;
+    for (int i = 0; i < listImage!.length; i++) {
+      String date = DateTime.now().toString();
+      final destination = 'files/post-image/$date';
+
+      var task =
+          await FirebaseApi.uploadFile(destination, File(listImage![i].path));
+      String url = await task!.ref.getDownloadURL();
+      Map<String, dynamic> image = new Map<String, dynamic>();
+      image['image'] = url;
+      setState(() {
+        listImages.add(image);
+      });
+    }
   }
 
   @override
@@ -74,21 +111,23 @@ class _CreatePostState extends State<CreatePost> {
                     type: StepperType.horizontal,
                     steps: getSteps(context),
                     currentStep: currentStep,
-                    onStepContinue: () {
+                    onStepContinue: () async {
                       if (check1 > 0 || currentStep >= 1) {
                         final isLastStep =
                             currentStep == getSteps(context).length - 1;
                         if (isLastStep) {
+                          await uploadFile();
                           setState(() => isCompleted = true);
                           Map<String, dynamic> post =
                               new Map<String, dynamic>();
                           post['title'] = titleController.text.toString();
                           post['content'] = contentController.text.toString();
-                          post['reviewCriteria'] = criteria;
-                          post['campaignID'] = widget.campaign.id;
-                          post['reviewerID'] = widget.reviewerId;
+                          post['criterions'] = criteria;
+                          post['campaignId'] = widget.campaign.id;
+                          post['reviewerId'] = widget.reviewerId;
+                          post['images'] = listImages;
 
-                          PostRequest.createPost(post, widget.token);
+                          await PostRequest.createPost(post, widget.token);
                         } else {
                           setState(() => currentStep += 1);
                         }
@@ -100,77 +139,76 @@ class _CreatePostState extends State<CreatePost> {
                               currentStep -= 1;
                               check1 = 0;
                             }),
-                    controlsBuilder: (context, details) {
+                    controlsBuilder: (context, {onStepContinue, onStepCancel}) {
                       // setState(() {
                       //   check1 = 0;
                       // });
                       final isLastStep =
                           currentStep == getSteps(context).length - 1;
                       return Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Text(
-                                  "Trở về",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                onPressed: details.onStepCancel,
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              child: Text(
+                                "Trở về",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               ),
+                              onPressed: onStepCancel,
                             ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: (check1 > 0 || currentStep >= 1)
-                                  ? ElevatedButton(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(6.5),
-                                        child: Text(
-                                          isLastStep ? "Hoàn tất" : "Tiếp tục",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      onPressed: details.onStepContinue,
-                                    )
-                                  : Container(
-                                      height: 37,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          borderRadius: BorderRadius.circular(5)
-                                          //     backgroundColor:
-                                          //         MaterialStateProperty.all<Color>(
-                                          //             Colors.grey.shade300),
-                                          //     shape: null,
-                                          //     shadowColor:
-                                          //         MaterialStateProperty.all<Color>(
-                                          //             Colors.white)),
-                                          // onPressed: () {},
-                                          ),
-                                      child: Center(
-                                        child: Text(
-                                          'Tiếp tục',
-                                          style: TextStyle(
-                                              color: Colors.black
-                                                  .withOpacity(0.35),
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: (check1 > 0 || currentStep >= 1)
+                                ? ElevatedButton(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6.5),
+                                      child: Text(
+                                        isLastStep ? "Hoàn tất" : "Tiếp tục",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                            ),
-                            // if (currentStep != 0)
-                          ],
-                        );
-                    }
-                    ),
+                                    onPressed: onStepContinue,
+                                  )
+                                : Container(
+                                    height: 37,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(5)
+                                        //     backgroundColor:
+                                        //         MaterialStateProperty.all<Color>(
+                                        //             Colors.grey.shade300),
+                                        //     shape: null,
+                                        //     shadowColor:
+                                        //         MaterialStateProperty.all<Color>(
+                                        //             Colors.white)),
+                                        // onPressed: () {},
+                                        ),
+                                    child: Center(
+                                      child: Text(
+                                        'Tiếp tục',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.black.withOpacity(0.35),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                          // if (currentStep != 0)
+                        ],
+                      );
+                    }),
               ),
       ),
     );
   }
 
   List<Step> getSteps(BuildContext context) {
+    final fileName = file != null ? file!.path : 'No File Selected';
     final size = MediaQuery.of(context).size;
     return [
       Step(
@@ -261,6 +299,13 @@ class _CreatePostState extends State<CreatePost> {
               //         fit: BoxFit.fitWidth),
               //   ),
               // ),
+              // ),
+              Container(
+                  height: 300,
+                  width: 300,
+                  child: ImagePickerr(
+                    callBackFunc: callbackImage,
+                  )),
             ],
           ),
         ),

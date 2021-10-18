@@ -25,6 +25,10 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^9.0.0
   firebase_auth: ^1.1.4
+  firebase_core:
+  firebase_storage:
+  file_picker:
+  image_picker: 
   google_sign_in: ^5.0.3
   provider: ^5.0.0
   http: 

@@ -8,7 +8,8 @@ import 'package:whiteboard_swd/utils/color.dart';
 import 'package:whiteboard_swd/views/post_details.dart';
 
 class PostPage extends StatefulWidget {
-  const PostPage({Key? key}) : super(key: key);
+  final String statusPost;
+  const PostPage({Key? key, required this.statusPost}) : super(key: key);
 
   @override
   _PostPageState createState() => _PostPageState();
@@ -18,18 +19,10 @@ class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Bài viết',
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.normal, fontSize: 18),
-        ),
-      ),
       body: SafeArea(
           child: Container(
         child: FutureBuilder<List<Post>?>(
-            future: PostRequest.getPostList(),
+            future: PostRequest.getPostList(widget.statusPost),
             builder: (context, snapshot) {
               if (snapshot.data != null) {
                 return Container(

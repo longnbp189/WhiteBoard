@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/post.dart';
 
 class PostRequest {
@@ -29,13 +30,16 @@ class PostRequest {
     return posts.listPost;
   }
 
-  static Future<List<Post>?> getPostList() async {
+  static Future<List<Post>?> getPostList(String status) async {
     final prefs = await SharedPreferences.getInstance();
     String? reviewerId = prefs.getString('reviewerId');
-    final response =
-        await http.get(Uri.parse(url + '/reviews?reviewerid=$reviewerId'));
+    final response = await http
+        .get(Uri.parse(url + '/reviews?reviewerid=$reviewerId&status=$status'));
     if (response.statusCode == 200) {
-      return parsePost(response.body);
+      var result = parsePost(response.body);
+      result!.sort(
+          (a, b) => toDate(b.onDateTime!).compareTo(toDate(a.onDateTime!)));
+      return result;
     } else
       throw Exception('Not Found');
   }
