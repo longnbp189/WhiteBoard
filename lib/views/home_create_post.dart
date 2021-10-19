@@ -139,7 +139,7 @@ class _CreatePostState extends State<CreatePost> {
                               currentStep -= 1;
                               check1 = 0;
                             }),
-                    controlsBuilder: (context, {onStepContinue, onStepCancel}) {
+                    controlsBuilder: (context, details) {
                       // setState(() {
                       //   check1 = 0;
                       // });
@@ -154,7 +154,7 @@ class _CreatePostState extends State<CreatePost> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-                              onPressed: onStepCancel,
+                              onPressed: details.onStepCancel,
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -170,7 +170,7 @@ class _CreatePostState extends State<CreatePost> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    onPressed: onStepContinue,
+                                    onPressed: details.onStepContinue,
                                   )
                                 : Container(
                                     height: 37,

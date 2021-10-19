@@ -82,6 +82,7 @@ int compareDate(String? campaignEndDate, d2) {
   //return d1.compareTo(d2);
 }
 
+
 class Campaigns {
   List<Campaign>? listCampaign;
 

@@ -62,7 +62,7 @@ class PostItem extends StatelessWidget {
       highlightColor: white_blue_white,
       onTap: () {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => PostDetail()));
+            .push(MaterialPageRoute(builder: (context) => PostDetail(post: post)));
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -178,6 +178,7 @@ class PostItem extends StatelessWidget {
           )
         ]),
       ),
+    
     );
   }
 

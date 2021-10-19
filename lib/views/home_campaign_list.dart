@@ -154,7 +154,7 @@ class _CampaignListState extends State<CampaignList> {
                           ),
                       fit: BoxFit.cover,
                     ),
-                  ),
+                  ),                
                 ),
 
               //color: Colors.white,
@@ -181,12 +181,22 @@ class _CampaignListState extends State<CampaignList> {
                                   )),
                             ),
                           ),
+                          //haltse
                           if (campaignData[i].flag!)
-                            Icon(
-                              FontAwesomeIcons.checkCircle,
-                              color: Colors.green,
-                              size: 16,
-                            )
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[100],
+                                borderRadius: BorderRadius.circular(10),
+                                //border: Border.all(width: 1),
+                              ),
+                              child: Text(
+                                '🎯 Đã tham gia',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.lightGreen[800]),
+                              ),
+                            ),
                         ],
                       ),
                       SizedBox(
