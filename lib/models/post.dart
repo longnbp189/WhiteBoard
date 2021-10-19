@@ -53,7 +53,7 @@ class Post {
     reviewerAvatar = json['reviewerAvatar'];
     onDateTime = json['onDateTime'];
     campusId = json['campusId'];
-    campusName = json['campusName'];
+    campaignName = json['campaignName'];
     reviewerEmail = json['reviewerEmail'];
     universityId = json['universityId'];
     universityName = json['universityName'];

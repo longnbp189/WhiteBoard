@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
+import 'package:whiteboard_swd/utils/color.dart';
 
 
 class CriteriaList{
@@ -13,15 +14,16 @@ List<Widget> createCriteriaList(List<Criteria>? campaignCriteria, double iFontSi
         Padding(
           padding: const EdgeInsets.only(right: 5, bottom: 5),
           child: Container(
-            padding: EdgeInsets.all(iFontSize*0.25),
+            padding: EdgeInsets.all(iFontSize*0.4),
             decoration: BoxDecoration(
-              color: Colors.black87,
-              //borderRadius: BorderRadius.circular(3),
-              border: Border.all(width: 1),
+              border: Border.all(width: 1, color: white_blue),
+              //color: Colors.lightBlue[100],
+              borderRadius: BorderRadius.circular(iFontSize),
+              //border: Border.all(width: 1),
             ),
             child: Text(
               campaignCriteria[i].name.toString(),
-              style: TextStyle(fontSize: iFontSize, color: Colors.white),
+              style: TextStyle(fontSize: iFontSize, color: white_blue),
             ),
           ),
         ),
