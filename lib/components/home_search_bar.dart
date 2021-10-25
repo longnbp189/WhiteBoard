@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whiteboard_swd/utils/color.dart';
 
 class HomeSearchBar extends StatefulWidget {
   const HomeSearchBar({Key? key}) : super(key: key);
@@ -22,12 +23,18 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
                 padding: EdgeInsets.only(bottom: 10),
                 height: size.height * 0.07,
                 child: TextFormField(
+                  cursorColor: white_blue,
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(top: 5),
                     hintText: "Tìm kiếm tên chiến dịch",
-                    prefixIcon: Icon(Icons.search),
+                    hintStyle: TextStyle(color: white_blue),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: white_blue,
+                    ),
                     border: OutlineInputBorder(
+                        borderSide: BorderSide(color: white_blue),
                         borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
@@ -40,6 +47,7 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
                   //haltse
                   //change icon and so on :>
                   Icons.filter_list_rounded,
+                  color: white_blue,
                   size: 30,
                 ))
           ],

@@ -108,13 +108,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          '9',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        (value.data!.publishedReviews.toString() != "0")
+                            ? Text(
+                                value.data!.publishedReviews.toString() + '0',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            : Text(
+                                '0',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
                         Text(
                           'Điểm',
                           style: TextStyle(

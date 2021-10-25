@@ -1,13 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:whiteboard_swd/models/image_post.dart';
-import 'package:whiteboard_swd/utils/color.dart';
-import 'package:whiteboard_swd/models/post.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:whiteboard_swd/views/criteria_list.dart';
-import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
+import 'package:whiteboard_swd/models/image_post.dart';
+import 'package:whiteboard_swd/models/post.dart';
+import 'package:whiteboard_swd/utils/color.dart';
 
 class PostDetail extends StatelessWidget {
   Post post;
@@ -112,9 +110,10 @@ class PostDetail extends StatelessWidget {
                         //   onTap: () {},
                         // ),
                         PopupMenuItem(
-                            child: Text("View campaign"),
-                            value: 1,
-                            onTap: () {})
+                          child: Text("View campaign"),
+                          value: 1,
+                          // onTap: () {}
+                        )
                       ])
               // }, icon: Icon(Icons.info_outlined))
             ],
@@ -175,6 +174,42 @@ class PostDetail extends StatelessWidget {
   Widget createPostContent(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Column(children: [
+      (post.whyNotPublic != null)
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.red.shade600),
+                  color: Colors.red.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(size.height * 0.02),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.error_outline,
+                            size: 30, color: Colors.red.shade600),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        width: size.width - 125,
+                        child: Text(
+                          'Bài viết của bạn không được chấp nhận bởi vì ' +
+                              post.whyNotPublic.toString(),
+                          style: TextStyle(
+                              fontSize: 13, color: Colors.red.withOpacity(0.9)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          : SizedBox(),
       Row(
         children: [
           Container(

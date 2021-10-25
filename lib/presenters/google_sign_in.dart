@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -60,6 +61,10 @@ class GoogleSignInProvider extends ChangeNotifier {
       reviewer = Reviewer.fromJson(body);
       reviewer.avatar = user.photoURL!;
       reviewer.name = user.displayName!;
+      await FirebaseMessaging.instance
+          .subscribeToTopic("Campus" + reviewer.campusId.toString());
+      await FirebaseMessaging.instance
+          .subscribeToTopic("Reviewer" + reviewer.id.toString());
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('reviewerId', reviewer.id.toString());

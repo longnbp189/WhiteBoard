@@ -67,7 +67,7 @@ class ChoicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? list;
-    if (choice.title == 'Đã duyệt') list = 'Public';
+    if (choice.title == 'Đã duyệt') list = 'Published';
     if (choice.title == 'Chờ xử lí') list = 'Waiting';
     if (choice.title == 'Bị từ chối') list = 'Unpublished';
     // final TextStyle? textStyle = Theme.of(context).textTheme.display1;

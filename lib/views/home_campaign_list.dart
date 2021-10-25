@@ -35,20 +35,24 @@ class _CampaignListState extends State<CampaignList> {
   //   });
   // }
 
-  List<Widget> criteriaList(List<Criteria>? campaignCriteria) {
+  List<Widget> criteriaList(
+      List<Criteria>? campaignCriteria, double iFontSize) {
     List<Widget> criList = [];
     for (var i = 0; i < campaignCriteria!.length; i++) {
       criList.add(
         Padding(
           padding: const EdgeInsets.only(right: 5, bottom: 5),
           child: Container(
-            padding: EdgeInsets.all(1),
+            padding: EdgeInsets.all(iFontSize * 0.4),
             decoration: BoxDecoration(
-              border: Border.all(width: 1),
+              border: Border.all(width: 1, color: white_blue),
+              //color: Colors.lightBlue[100],
+              borderRadius: BorderRadius.circular(iFontSize),
+              //border: Border.all(width: 1),
             ),
             child: Text(
               campaignCriteria[i].name.toString(),
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: iFontSize, color: white_blue),
             ),
           ),
         ),
@@ -154,7 +158,7 @@ class _CampaignListState extends State<CampaignList> {
                           ),
                       fit: BoxFit.cover,
                     ),
-                  ),                
+                  ),
                 ),
 
               //color: Colors.white,
@@ -219,7 +223,7 @@ class _CampaignListState extends State<CampaignList> {
                       Text(
                         campaignData[i].description.toString(),
                         style: TextStyle(
-                          color: grey_text,
+                          color: Colors.black,
                           fontSize: 14,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -234,9 +238,11 @@ class _CampaignListState extends State<CampaignList> {
                       //       : [SizedBox()],
                       // ),
                       Wrap(
+                          spacing: 2,
+                          runSpacing: 2,
                           direction: Axis.horizontal,
-                          children:
-                              criteriaList(campaignData[i].campaignCriteria)),
+                          children: criteriaList(
+                              campaignData[i].campaignCriteria, 14)),
                       SizedBox(
                         height: 5,
                       ),

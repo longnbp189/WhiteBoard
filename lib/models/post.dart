@@ -17,6 +17,7 @@ class Post {
   String? universityId;
   String? universityName;
   String? reviewerEmail;
+  String? whyNotPublic;
 
   List<ImagePost>? imagePost;
   List<Criteria>? postCriteria;
@@ -39,6 +40,7 @@ class Post {
     this.postCriteria,
     this.universityId,
     this.universityName,
+    this.whyNotPublic,
   });
 
   Post.fromJson(Map<String, dynamic> json) {
@@ -57,6 +59,7 @@ class Post {
     reviewerEmail = json['reviewerEmail'];
     universityId = json['universityId'];
     universityName = json['universityName'];
+    whyNotPublic = json['whyNotPublic'];
 
     var imageList = json['pictures'] as List;
     List<ImagePost> imagePostList =

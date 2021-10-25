@@ -5,6 +5,7 @@ import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/models/post.dart';
 import 'package:whiteboard_swd/presenters/post_request.dart';
 import 'package:whiteboard_swd/utils/color.dart';
+import 'package:whiteboard_swd/views/criteria_list.dart';
 import 'package:whiteboard_swd/views/post_details.dart';
 
 class PostPage extends StatefulWidget {
@@ -61,8 +62,8 @@ class PostItem extends StatelessWidget {
       // splashColor: dart_blue,
       highlightColor: white_blue_white,
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => PostDetail(post: post)));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => PostDetail(post: post)));
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -154,7 +155,7 @@ class PostItem extends StatelessWidget {
                 spacing: 2,
                 runSpacing: 2,
                 direction: Axis.horizontal,
-                children: criteriaList(post.postCriteria!),
+                children: criteriaList(post.postCriteria, 14),
               ),
               SizedBox(
                 height: 10,
@@ -178,24 +179,27 @@ class PostItem extends StatelessWidget {
           )
         ]),
       ),
-    
     );
   }
 
-  List<Widget> criteriaList(List<Criteria>? campaignCriteria) {
+  List<Widget> criteriaList(
+      List<Criteria>? campaignCriteria, double iFontSize) {
     List<Widget> criList = [];
     for (var i = 0; i < campaignCriteria!.length; i++) {
       criList.add(
         Padding(
           padding: const EdgeInsets.only(right: 5, bottom: 5),
           child: Container(
-            padding: EdgeInsets.all(1),
+            padding: EdgeInsets.all(iFontSize * 0.4),
             decoration: BoxDecoration(
-              border: Border.all(width: 1),
+              border: Border.all(width: 1, color: white_blue),
+              //color: Colors.lightBlue[100],
+              borderRadius: BorderRadius.circular(iFontSize),
+              //border: Border.all(width: 1),
             ),
             child: Text(
               campaignCriteria[i].namePost.toString(),
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: iFontSize, color: white_blue),
             ),
           ),
         ),

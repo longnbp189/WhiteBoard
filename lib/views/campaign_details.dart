@@ -144,34 +144,37 @@ class CampaignDetails extends StatelessWidget {
                       height: 40,
                     )),
 
-                (campaignStatus >= 0) ?  Positioned(
-                    top: size.height * 0.5 - 30,
-                    left: 25,
-                    child: Center(
-                      child: ElevatedButton.icon(
-                        icon: Text(
-                          'Inside this campaign',
-                        ),
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.orange),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                (campaignStatus >= 0)
+                    ? Positioned(
+                        top: size.height * 0.5 - 30,
+                        left: 25,
+                        child: Center(
+                          child: ElevatedButton.icon(
+                            icon: Text(
+                              'Inside this campaign',
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.orange),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          )),
-                        ),
-                        label: FaIcon(
-                          FontAwesomeIcons.angleDoubleRight,
-                          size: 15,
-                        ),
-                        onPressed: () {
-                          //view post in campaign
-                        },
-                      ),
-                    )):SizedBox(),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              )),
+                            ),
+                            label: FaIcon(
+                              FontAwesomeIcons.angleDoubleRight,
+                              size: 15,
+                            ),
+                            onPressed: () {
+                              //view post in campaign
+                            },
+                          ),
+                        ))
+                    : SizedBox(),
                 Container(
                   height: size.height * 0.55,
                 ),
@@ -180,12 +183,10 @@ class CampaignDetails extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 animation: true,
                 lineHeight: 7,
-                percentage: (campaignStatus == -1 ) ? 0 : 0.3,
+                percentage: (campaignStatus == -1) ? 0 : 0.3,
                 backgroundColor: Colors.grey[300]!,
                 progressBarColor:
-                    (campaignStatus >= 0)
-                        ? Colors.orange
-                        : Colors.lightBlue,
+                    (campaignStatus >= 0) ? Colors.orange : Colors.lightBlue,
               ),
               Container(
                 padding: EdgeInsets.all(20),
@@ -242,10 +243,11 @@ class CampaignDetails extends StatelessWidget {
                     ]),
               ),
               Image.asset(
-                campaignStatus == -1 ? 'assets/images/ready.png':
-                isFlag
-                    ? 'assets/images/already.png'
-                    : 'assets/images/notyet.png',
+                campaignStatus == -1
+                    ? 'assets/images/ready.png'
+                    : isFlag
+                        ? 'assets/images/already.png'
+                        : 'assets/images/notyet.png',
                 height: size.height * 0.25,
               ),
               SizedBox(
@@ -253,10 +255,11 @@ class CampaignDetails extends StatelessWidget {
               ),
               Column(children: [
                 Text(
-                  campaignStatus == -1 ? 'Bạn đã sẵn sàng cho chiến dịch này chưa!?':
-                  isFlag
-                      ? 'Bạn đã viết bài đánh giá cho chiến dịch này!'
-                      : 'Bạn chưa viết bài đánh giá cho chiến dịch này?',
+                  campaignStatus == -1
+                      ? 'Bạn đã sẵn sàng cho chiến dịch này chưa?'
+                      : isFlag
+                          ? 'Bạn đã viết bài đánh giá cho chiến dịch này!'
+                          : 'Bạn chưa viết bài đánh giá cho chiến dịch này?',
                   style: TextStyle(
                       fontSize: 15,
                       color: Colors.lightBlue,
@@ -304,7 +307,6 @@ class CampaignDetails extends StatelessWidget {
                                     : Icons.create_outlined,
                               ),
                               onPressed: () {
-                                
                                 // isFlag
                                 // ////view post in campaign
                                 // ?
@@ -341,6 +343,5 @@ class CampaignDetails extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     }
-    
   }
 }
