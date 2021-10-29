@@ -3,10 +3,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:whiteboard_swd/models/campaign.dart';
+import 'package:whiteboard_swd/presenters/campaign_request.dart';
 import 'package:whiteboard_swd/presenters/google_sign_in.dart';
+import 'package:whiteboard_swd/presenters/post_request.dart';
+import 'package:whiteboard_swd/views/campaign_details.dart';
 import 'package:whiteboard_swd/views/home_screen.dart';
 import 'package:whiteboard_swd/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:whiteboard_swd/views/post_details.dart';
 
 // void main() => runApp(MyApp());
 
@@ -109,9 +115,29 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('Notification clicked!');
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      final prefs = await SharedPreferences.getInstance();
       // naviation to page
+      if (message.data['AboutCampaignID'] != null) {
+        String campaignId = message.data['AboutCampaignID'];
+        var campaign = await NetworkRequest.getCampaignById(campaignId);
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => CampaignDetails(
+                  campaign: campaign!,
+                  reviewerId: prefs.getString("reviewerId")!,
+                  token: prefs.getString("token")!,
+                ) //send param using constructor
+            ));
+      }
+      if (message.data['AboutReviewID'] != null) {
+        String postId = message.data['AboutReviewID'];
+        var post = await PostRequest.getPostById(postId);
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => PostDetail(
+                  post: post!,
+                ) //send param using constructor
+            ));
+      }
     });
     super.initState();
   }

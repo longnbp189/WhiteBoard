@@ -2,7 +2,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:whiteboard_swd/components/button_upload_file.dart';
 import 'package:whiteboard_swd/utils/color.dart';
-import 'package:whiteboard_swd/views/ex_noti.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);

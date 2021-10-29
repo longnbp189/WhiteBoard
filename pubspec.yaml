@@ -40,6 +40,7 @@ dependencies:
   photo_view:
   rxdart:
   timezone:
+  flutter_rating_bar:
   
   
 

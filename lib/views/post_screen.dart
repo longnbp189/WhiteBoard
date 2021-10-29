@@ -155,7 +155,7 @@ class PostItem extends StatelessWidget {
                 spacing: 2,
                 runSpacing: 2,
                 direction: Axis.horizontal,
-                children: criteriaList(post.postCriteria, 14),
+                children: criteriaList(post.postCriteria, 16),
               ),
               SizedBox(
                 height: 10,
@@ -197,9 +197,33 @@ class PostItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(iFontSize),
               //border: Border.all(width: 1),
             ),
-            child: Text(
-              campaignCriteria[i].namePost.toString(),
-              style: TextStyle(fontSize: iFontSize, color: white_blue),
+            child: Wrap(
+              direction: Axis.horizontal,
+              children: [
+                Text(
+                  campaignCriteria[i].namePost.toString(),
+                  style: TextStyle(fontSize: iFontSize, color: white_blue),
+                ),
+                if (campaignCriteria[i].ratingPost != null &&
+                    campaignCriteria[i].ratingPost != 0.0)
+                  Wrap(
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        campaignCriteria[i].ratingPost.toString(),
+                        style:
+                            TextStyle(fontSize: iFontSize, color: Colors.black),
+                      ),
+                      Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Colors.amber,
+                      ),
+                    ],
+                  ),
+              ],
             ),
           ),
         ),

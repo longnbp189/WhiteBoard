@@ -3,9 +3,14 @@ import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/utils/color.dart';
 
 class ChipCustom extends StatefulWidget {
+  final bool checked;
   final Function callback;
   final Criteria criteria;
-  const ChipCustom({Key? key, required this.criteria, required this.callback})
+  const ChipCustom(
+      {Key? key,
+      required this.criteria,
+      required this.callback,
+      required this.checked})
       : super(key: key);
 
   @override
@@ -14,6 +19,13 @@ class ChipCustom extends StatefulWidget {
 
 class _ChipCustomState extends State<ChipCustom> {
   bool check = false;
+
+  @override
+  void initState() {
+    check = widget.checked;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

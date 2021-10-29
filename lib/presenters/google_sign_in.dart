@@ -68,6 +68,8 @@ class GoogleSignInProvider extends ChangeNotifier {
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('reviewerId', reviewer.id.toString());
+      prefs.setString('token', reviewer.token.toString());
+
       // prefs.setString('info', response.body);
       // prefs.setString('info', jsonEncode(response.body));
     } else {

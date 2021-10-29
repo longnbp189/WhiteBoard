@@ -43,4 +43,12 @@ class PostRequest {
     } else
       throw Exception('Not Found');
   }
+
+  static Future<Post?> getPostById(String postId) async {
+    final response = await http.get(Uri.parse(url + '/reviews/$postId'));
+    if (response.statusCode == 200) {
+      return Post.fromJson(json.decode(response.body));
+    } else
+      throw Exception('Not Found');
+  }
 }

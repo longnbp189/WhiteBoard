@@ -42,4 +42,12 @@ class NetworkRequest {
     } else
       throw Exception('Not Found');
   }
+
+  static Future<Campaign?> getCampaignById(String campaignId) async {
+    final response = await http.get(Uri.parse(url + '/campaigns/$campaignId'));
+    if (response.statusCode == 200) {
+      return Campaign.fromJson(json.decode(response.body));
+    } else
+      throw Exception('Not Found');
+  }
 }

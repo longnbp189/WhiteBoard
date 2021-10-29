@@ -194,36 +194,44 @@ class CampaignDetails extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            '30 BÀI VIẾT', //number of post
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                                color: Colors.lightBlue),
-                          ),
-                          Expanded(child: SizedBox()),
-                          Text(
-                            '12',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Icon(
-                            Icons.people_alt_outlined,
-                            color: Colors.lightBlue,
-                          )
-                        ],
-                      ),
-                      Text(
-                        'trên 100 bài viết mục tiêu', //number of post
-                      ),
+                      (campaign.reviewerJoined.toString() != null)
+                          ? Row(
+                              children: [
+                                Icon(
+                                  Icons.people_alt_outlined,
+                                  color: Colors.lightBlue,
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  campaign.reviewerJoined.toString() +
+                                      ' người đã tham gia chiến dịch này.', //number of post
+                                  style: TextStyle(
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.lightBlue),
+                                ),
+                                // Expanded(child: SizedBox()),
+                                // Text(
+                                //   '12',
+                                //   style: TextStyle(fontSize: 20),
+                                // ),
+                                // Icon(
+                                //   Icons.people_alt_outlined,
+                                //   color: Colors.lightBlue,
+                                // )
+                              ],
+                            )
+                          : SizedBox(),
+                      // Text(
+                      //   'trên 100 bài viết mục tiêu', //number of post
+                      // ),
                       SizedBox(
                         height: 20,
                       ),
                       Wrap(
                         direction: Axis.horizontal,
                         children: CriteriaList()
-                            .createCriteriaList(campaign.campaignCriteria, 14),
+                            .createCriteriaList(campaign.campaignCriteria, 16),
                       ),
                       SizedBox(
                         height: 20,

@@ -12,6 +12,8 @@ class Campaign {
   String? university;
   String? description;
   String? universityName;
+  int? reviewerJoined;
+  double? averageRatings;
   bool? flag;
 
   List<Criteria>? campaignCriteria;
@@ -20,6 +22,8 @@ class Campaign {
     this.campaignCriteria,
     this.campusName,
     this.endDay,
+    this.averageRatings,
+    this.reviewerJoined,
     this.id,
     this.image,
     this.description,
@@ -39,6 +43,8 @@ class Campaign {
     endDay = json['endDay'];
     image = json['image'];
     universityName = json['universityName'];
+    reviewerJoined = json['reviewerJoined'];
+    averageRatings = json['averageRatings'];
     flag = false;
 
     var list = json['criterions'] as List;
@@ -81,7 +87,6 @@ int compareDate(String? campaignEndDate, d2) {
 
   //return d1.compareTo(d2);
 }
-
 
 class Campaigns {
   List<Campaign>? listCampaign;

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/models/image_post.dart';
 import 'package:whiteboard_swd/models/post.dart';
+import 'package:whiteboard_swd/presenters/campaign_request.dart';
 import 'package:whiteboard_swd/utils/color.dart';
+import 'package:whiteboard_swd/views/campaign_details.dart';
 
 class PostDetail extends StatelessWidget {
   Post post;
@@ -100,21 +103,35 @@ class PostDetail extends StatelessWidget {
                   ],
                 )),
             actions: [
+              IconButton(
+                  onPressed: () async {
+                    var campaign =
+                        await NetworkRequest.getCampaignById(post.campaignId!);
+                    final prefs = await SharedPreferences.getInstance();
+
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CampaignDetails(
+                              campaign: campaign!,
+                              reviewerId: prefs.getString("reviewerId")!,
+                              token: prefs.getString("token")!,
+                            )));
+                  },
+                  icon: Icon(Icons.info_outline))
               //Icon(icon),
               //IconButton(onPressed: (){
-              PopupMenuButton(
-                  itemBuilder: (context) => [
-                        // PopupMenuItem(
-                        //   child: Text("Delete post"),
-                        //   value: 1,
-                        //   onTap: () {},
-                        // ),
-                        PopupMenuItem(
-                          child: Text("View campaign"),
-                          value: 1,
-                          // onTap: () {}
-                        )
-                      ])
+              // PopupMenuButton(
+              //     itemBuilder: (context) => [
+              //           // PopupMenuItem(
+              //           //   child: Text("Delete post"),
+              //           //   value: 1,
+              //           //   onTap: () {},
+              //           // ),
+              //           PopupMenuItem(
+              //             child: Text("View campaign"),
+              //             value: 1,
+              //             // onTap: () {}
+              //           )
+              //         ])
               // }, icon: Icon(Icons.info_outlined))
             ],
           ),
@@ -263,28 +280,36 @@ class PostDetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            post.title.toString(),
-            textAlign: TextAlign.start,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              post.title.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
           ),
           SizedBox(
             height: 10,
           ),
-          Text(
-            post.content.toString(),
-            style: TextStyle(fontSize: 14),
-            //overflow: TextOverflow.ellipsis,
-            // maxLines: 5,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              post.content.toString(),
+              style: TextStyle(fontSize: 14),
+              //overflow: TextOverflow.ellipsis,
+              // maxLines: 5,
+            ),
           ),
           SizedBox(
             height: 10,
           ),
-          Wrap(
-            spacing: 2,
-            runSpacing: 2,
-            direction: Axis.horizontal,
-            children: createCriteriaList(post.postCriteria!, 14),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              spacing: 2,
+              runSpacing: 2,
+              direction: Axis.horizontal,
+              children: createCriteriaList(post.postCriteria!, 16),
+            ),
           ),
           SizedBox(
             height: 10,
@@ -322,9 +347,33 @@ class PostDetail extends StatelessWidget {
               border: Border.all(width: 1, color: white_blue),
               borderRadius: BorderRadius.circular(iFontSize * 2),
             ),
-            child: Text(
-              campaignCriteria[i].namePost.toString(),
-              style: TextStyle(fontSize: iFontSize, color: white_blue),
+            child: Wrap(
+              direction: Axis.horizontal,
+              children: [
+                Text(
+                  campaignCriteria[i].namePost.toString(),
+                  style: TextStyle(fontSize: iFontSize, color: white_blue),
+                ),
+                if (campaignCriteria[i].ratingPost != null &&
+                    campaignCriteria[i].ratingPost != 0.0)
+                  Wrap(
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        campaignCriteria[i].ratingPost.toString(),
+                        style:
+                            TextStyle(fontSize: iFontSize, color: Colors.black),
+                      ),
+                      Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Colors.amber,
+                      ),
+                    ],
+                  ),
+              ],
             ),
           ),
         ),

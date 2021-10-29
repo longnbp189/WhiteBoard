@@ -141,25 +141,89 @@ class _CampaignListState extends State<CampaignList> {
           ),
           child: Column(
             children: [
-              if (campaignData[i].image.toString() != '')
-                Container(
-                  // width: size.width - 20,
-                  height: size.height * 0.16,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          // campaignData[i].image != null
-                          // ?
-                          campaignData[i].image.toString()
-                          // : 'https://kenh14cdn.com/thumb_w/600/pr/2020/photo-1-159188526439782241575-0-39-870-1431-crop-1591885573914-63727516282294.jpg',
-                          ),
-                      fit: BoxFit.cover,
+              // if (campaignData[i].image.toString() != '')
+              Container(
+                height: size.height * 0.16,
+                child: Stack(
+                  children: [
+                    Container(
+                      // width: size.width - 20,
+                      height: size.height * 0.16,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        image: DecorationImage(
+                          image: NetworkImage(campaignData[i].image.toString()),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
+                    (compareDate(campaignData[i].startDay, DateTime.now()) < 0)
+                        ? Align(
+                            alignment: Alignment.topRight,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.lightGreen[100],
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10)),
+                                    //border: Border.all(width: 1),
+                                  ),
+                                  child: Text(
+                                    'Đang diễn ra',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.lightGreen[800]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.amber[100],
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                //border: Border.all(width: 1),
+                              ),
+                              child: Text(
+                                'Sắp diễn ra',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.amber[800]),
+                              ),
+                            ),
+                          ),
+                    // if (campaignData[i].flag!)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.lightGreen[100],
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                          ),
+                          //border: Border.all(width: 1),
+                        ),
+                        child: Text(
+                          '🎯 Đã tham gia',
+                          style: TextStyle(
+                              fontSize: 12, color: Colors.lightGreen[800]),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
 
               //color: Colors.white,
               Padding(
@@ -185,21 +249,19 @@ class _CampaignListState extends State<CampaignList> {
                                   )),
                             ),
                           ),
-                          //haltse
-                          if (campaignData[i].flag!)
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.lightGreen[100],
-                                borderRadius: BorderRadius.circular(10),
-                                //border: Border.all(width: 1),
-                              ),
-                              child: Text(
-                                '🎯 Đã tham gia',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.lightGreen[800]),
-                              ),
+                          if (campaignData[i].averageRatings != null &&
+                              campaignData[i].averageRatings != 0.0)
+                            Row(
+                              children: [
+                                Text(campaignData[i].averageRatings.toString()),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                )
+                              ],
                             ),
                         ],
                       ),
