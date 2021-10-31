@@ -51,4 +51,18 @@ class PostRequest {
     } else
       throw Exception('Not Found');
   }
+
+  static Future<List<Post>?> getPostsOfCampaign(String campaignId) async {
+    // final prefs = await SharedPreferences.getInstance();
+    // String? reviewerId = prefs.getString('reviewerId');
+    final response = await http
+        .get(Uri.parse(url + '/reviews?campaignId=$campaignId'));
+    if (response.statusCode == 200) {
+      var result = parsePost(response.body);
+      result!.sort(
+          (a, b) => toDate(b.onDateTime!).compareTo(toDate(a.onDateTime!)));
+      return result;
+    } else
+      throw Exception('Not Found');
+  }
 }

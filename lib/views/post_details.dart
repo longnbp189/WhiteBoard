@@ -7,13 +7,15 @@ import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/models/image_post.dart';
 import 'package:whiteboard_swd/models/post.dart';
 import 'package:whiteboard_swd/presenters/campaign_request.dart';
+import 'package:whiteboard_swd/presenters/post_request.dart';
 import 'package:whiteboard_swd/utils/color.dart';
 import 'package:whiteboard_swd/views/campaign_details.dart';
 
 class PostDetail extends StatelessWidget {
-  Post post;
+  String? postId;
+  late Post post;
 
-  PostDetail({required this.post});
+  PostDetail({required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -21,126 +23,142 @@ class PostDetail extends StatelessWidget {
     double appbarSize = size.height * 0.3;
     return SafeArea(
         child: Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text(
-              'Chi tiết bài viết',
-              style: TextStyle(fontSize: 16),
-            ),
-            centerTitle: true,
-            backgroundColor: Color(0xa02682F7),
-            expandedHeight: appbarSize,
-            floating: true,
-            pinned: true,
-            //leading: Icon(Icons.arrow_back),
-            flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.pin,
-                background: Stack(
-                  children: [
-                    //campaign image
-                    Image.network(
-                      post.imagePost![0].picture.toString(),
-                      width: size.width,
-                      fit: BoxFit.cover,
-                    ),
-
-                    ////campaign name
-
-                    Container(
-                      height: appbarSize - 5,
-                      decoration: BoxDecoration(
-                        // borderRadius:
-                        //     BorderRadius.only(bottomLeft: Radius.circular(60)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black12,
-                            Colors.black26,
-                            Colors.black38,
-                            Colors.black54,
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                        top: appbarSize * 0.85,
-                        left: 0,
-                        right: 0,
-                        height: appbarSize * 0.15,
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(30.0),
-                              topRight: const Radius.circular(30.0),
-                            ),
-                            color: Colors.white,
+            body: FutureBuilder<Post?>(
+                future: PostRequest.getPostById(postId!),
+                builder: (context, snapshot) {
+                  if (snapshot.data != null) {
+                    post = snapshot.data!;
+                    return CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                          title: Text(
+                            'Chi tiết bài viết',
+                            style: TextStyle(fontSize: 16),
                           ),
-                        )),
-                    Positioned(
-                      width: size.width,
-                      top: appbarSize * 0.5,
-                      left: size.width * 0.1,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              convertHeader(post.campaignName.toString()),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: appbarSize * 0.1,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                          ]),
-                    ),
-                  ],
-                )),
-            actions: [
-              IconButton(
-                  onPressed: () async {
-                    var campaign =
-                        await NetworkRequest.getCampaignById(post.campaignId!);
-                    final prefs = await SharedPreferences.getInstance();
+                          centerTitle: true,
+                          backgroundColor: Color(0xa02682F7),
+                          expandedHeight: appbarSize,
+                          floating: true,
+                          pinned: true,
+                          //leading: Icon(Icons.arrow_back),
+                          flexibleSpace: FlexibleSpaceBar(
+                              collapseMode: CollapseMode.pin,
+                              background: Stack(
+                                children: [
+                                  //campaign image
+                                  Image.network(
+                                    post.imagePost![0].picture.toString(),
+                                    width: size.width,
+                                    fit: BoxFit.cover,
+                                  ),
 
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CampaignDetails(
-                              campaign: campaign!,
-                              reviewerId: prefs.getString("reviewerId")!,
-                              token: prefs.getString("token")!,
-                            )));
-                  },
-                  icon: Icon(Icons.info_outline))
-              //Icon(icon),
-              //IconButton(onPressed: (){
-              // PopupMenuButton(
-              //     itemBuilder: (context) => [
-              //           // PopupMenuItem(
-              //           //   child: Text("Delete post"),
-              //           //   value: 1,
-              //           //   onTap: () {},
-              //           // ),
-              //           PopupMenuItem(
-              //             child: Text("View campaign"),
-              //             value: 1,
-              //             // onTap: () {}
-              //           )
-              //         ])
-              // }, icon: Icon(Icons.info_outlined))
-            ],
-          ),
+                                  ////campaign name
 
-          //createPostContent(context),
-          buildContent(context)
-        ],
-      ),
-    ));
+                                  Container(
+                                    height: appbarSize - 5,
+                                    decoration: BoxDecoration(
+                                      // borderRadius:
+                                      //     BorderRadius.only(bottomLeft: Radius.circular(60)),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.black12,
+                                          Colors.black26,
+                                          Colors.black38,
+                                          Colors.black54,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                      top: appbarSize * 0.85,
+                                      left: 0,
+                                      right: 0,
+                                      height: appbarSize * 0.15,
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft:
+                                                const Radius.circular(30.0),
+                                            topRight:
+                                                const Radius.circular(30.0),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                      )),
+                                  Positioned(
+                                    width: size.width,
+                                    top: appbarSize * 0.5,
+                                    left: size.width * 0.1,
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            convertHeader(
+                                                post.campaignName.toString()),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: appbarSize * 0.1,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                        ]),
+                                  ),
+                                ],
+                              )),
+                          actions: [
+                            IconButton(
+                                onPressed: () async {
+                                  var campaign =
+                                      await NetworkRequest.getCampaignById(
+                                          post.campaignId!);
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => CampaignDetails(
+                                            campaign: campaign!,
+                                            reviewerId:
+                                                prefs.getString("reviewerId")!,
+                                            token: prefs.getString("token")!,
+                                          )));
+                                },
+                                icon: Icon(Icons.info_outline))]
+                            //Icon(icon),
+                            //IconButton(onPressed: (){
+                            // PopupMenuButton(
+                            //     itemBuilder: (context) => [
+                            //           // PopupMenuItem(
+                            //           //   child: Text("Delete post"),
+                            //           //   value: 1,
+                            //           //   onTap: () {},
+                            //           // ),
+                            //           PopupMenuItem(
+                            //             child: Text("View campaign"),
+                            //             value: 1,
+                            //             // onTap: () {}
+                            //           )
+                            //         ])
+                            // }, icon: Icon(Icons.info_outlined))
+                          ,
+                        ),
+
+                        //createPostContent(context),
+                        buildContent(context)
+                      ],
+                    );
+                  } else
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                })));
   }
 
   Widget buildContent(BuildContext context) {

@@ -43,6 +43,36 @@ class NetworkRequest {
       throw Exception('Not Found');
   }
 
+  static Future<List<Campaign>?> searchCampaignByName(
+      String universityId, String reviewerId,String name) async {
+    final response = await http
+        .get(Uri.parse(url + '/campaigns?universityid=$universityId&keyWord=$name'));
+    if (response.statusCode == 200) {
+      final response1 =
+          await http.get(Uri.parse(url + '/reviews?reviewerid=$reviewerId'));
+      if (response1.statusCode == 200) {
+        var parseCampaignList = parseCampaign(response.body);
+        var parsePostList = PostRequest.parsePost(response1.body);
+        for (var i = 0; i < parseCampaignList!.length; i++) {
+          for (var j = 0; j < parsePostList!.length; j++) {
+            if (parsePostList[j].campaignId == parseCampaignList[i].id) {
+              parseCampaignList[i].flag = true;
+            }
+          }
+        }
+        parseCampaignList
+            .sort((a, b) => toDate(b.startDay!).compareTo(toDate(a.startDay!)));
+        return parseCampaignList;
+      } else {
+        var result = parseCampaign(response.body);
+        result!
+            .sort((a, b) => toDate(b.startDay!).compareTo(toDate(a.startDay!)));
+        return result;
+      }
+    } else
+      throw Exception('Not Found');
+  }
+
   static Future<Campaign?> getCampaignById(String campaignId) async {
     final response = await http.get(Uri.parse(url + '/campaigns/$campaignId'));
     if (response.statusCode == 200) {

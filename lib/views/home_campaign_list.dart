@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:whiteboard_swd/models/campaign.dart';
 import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/utils/color.dart';
@@ -7,22 +10,55 @@ import 'package:whiteboard_swd/presenters/campaign_request.dart';
 import 'package:whiteboard_swd/views/home_create_post.dart';
 import 'package:whiteboard_swd/views/campaign_details.dart';
 
+StreamController<String> streamController = BehaviorSubject();
+
 class CampaignList extends StatefulWidget {
   final String universityId;
   final String reviewerId;
   final String token;
-  const CampaignList(
+  Stream<String> stream; 
+  String? name;
+   CampaignList(
       {Key? key,
+      
       required this.universityId,
       required this.reviewerId,
-      required this.token})
+      required this.token,
+      this.name,
+      required this.stream
+     })
       : super(key: key);
 
   @override
   _CampaignListState createState() => _CampaignListState();
+
+
 }
 
 class _CampaignListState extends State<CampaignList> {
+  late Future<List<Campaign>?> campaignsfound = NetworkRequest.getAllCampaign(widget.universityId, widget.reviewerId);
+   //search value
+  //late String? order;
+
+
+
+  void mySetState(String searchName) {
+    if (searchName != '') 
+    setState(() {
+      campaignsfound = NetworkRequest.searchCampaignByName(widget.universityId, widget.reviewerId, searchName);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.stream.listen((name) {
+      mySetState(name);
+    });
+     //WidgetsBinding.instance!.addObserver(this);
+  }
+  
+
   // List<Campaign>? campaignData = [];
 
   // @override
@@ -63,6 +99,7 @@ class _CampaignListState extends State<CampaignList> {
 
   List<Widget> campaignList(
       List<Campaign> campaignData, String reviewerId, String token) {
+        
     final size = MediaQuery.of(context).size;
     List<Widget> list = [];
 // <<<<<<< HEAD
@@ -161,7 +198,7 @@ class _CampaignListState extends State<CampaignList> {
                     ),
                     (compareDate(campaignData[i].startDay, DateTime.now()) < 0)
                         ? Align(
-                            alignment: Alignment.topRight,
+                            alignment: Alignment.topLeft,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
@@ -170,8 +207,9 @@ class _CampaignListState extends State<CampaignList> {
                                   decoration: BoxDecoration(
                                     color: Colors.lightGreen[100],
                                     borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)),
+                                        bottomRight: Radius.circular(10),
+                                        //topRight: Radius.circular(10)
+                                        ),
                                     //border: Border.all(width: 1),
                                   ),
                                   child: Text(
@@ -185,14 +223,15 @@ class _CampaignListState extends State<CampaignList> {
                             ),
                           )
                         : Align(
-                            alignment: Alignment.topRight,
+                            alignment: Alignment.topLeft,
                             child: Container(
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.amber[100],
                                 borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
+                                    bottomRight: Radius.circular(10),
+                                        //topRight: Radius.circular(10)
+                                )
                                 //border: Border.all(width: 1),
                               ),
                               child: Text(
@@ -258,7 +297,7 @@ class _CampaignListState extends State<CampaignList> {
                                   width: 2,
                                 ),
                                 Icon(
-                                  Icons.star,
+                                  Icons.star_rate_rounded,
                                   color: Colors.amber,
                                 )
                               ],
@@ -336,7 +375,7 @@ class _CampaignListState extends State<CampaignList> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<Campaign>?>(
       future:
-          NetworkRequest.getAllCampaign(widget.universityId, widget.reviewerId),
+          campaignsfound,
       builder: (context, snapshot) {
         if (snapshot.data != null) {
           return SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whiteboard_swd/utils/color.dart';
+import 'package:whiteboard_swd/views/home_campaign_list.dart';
 
 class HomeSearchBar extends StatefulWidget {
   const HomeSearchBar({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class HomeSearchBar extends StatefulWidget {
 }
 
 class _HomeSearchBarState extends State<HomeSearchBar> {
+  final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,6 +27,14 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
                 child: TextFormField(
                   cursorColor: white_blue,
                   textAlign: TextAlign.left,
+
+                  /***********************/
+                  enableSuggestions: true,
+                  controller: searchController,
+                          onFieldSubmitted: (text) {
+                            searchController.clear();
+                            streamController.add(text);
+                          },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(top: 5),
                     hintText: "Tìm kiếm tên chiến dịch",

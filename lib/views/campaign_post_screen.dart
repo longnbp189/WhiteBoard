@@ -5,25 +5,30 @@ import 'package:whiteboard_swd/models/criteria.dart';
 import 'package:whiteboard_swd/models/post.dart';
 import 'package:whiteboard_swd/presenters/post_request.dart';
 import 'package:whiteboard_swd/utils/color.dart';
-import 'package:whiteboard_swd/views/criteria_list.dart';
 import 'package:whiteboard_swd/views/post_details.dart';
 
-class PostPage extends StatefulWidget {
-  final String statusPost;
-  const PostPage({Key? key, required this.statusPost}) : super(key: key);
+class CampaignPostsPage extends StatefulWidget {
+  String? campaignId;
+ CampaignPostsPage({ required this.campaignId });
 
   @override
-  _PostPageState createState() => _PostPageState();
+  _CampaignPostsPageState createState() => _CampaignPostsPageState();
 }
 
-class _PostPageState extends State<PostPage> {
+class _CampaignPostsPageState extends State<CampaignPostsPage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(centerTitle: true,
+      title: Text('Bài viết'),
+      backgroundColor: Colors.white,
+      foregroundColor: white_blue,
+      ),
       body: SafeArea(
           child: Container(
         child: FutureBuilder<List<Post>?>(
-            future: PostRequest.getPostList(widget.statusPost),
+            future: PostRequest.getPostsOfCampaign(widget.campaignId!),
             builder: (context, snapshot) {
               if (snapshot.data != null) {
                 return Container(
@@ -69,17 +74,7 @@ class PostItem extends StatelessWidget {
         padding: EdgeInsets.all(10),
         width: size.width - 2 * 10,
         decoration: BoxDecoration(
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.7), //color of shadow
-          //     spreadRadius: 3, //spread radius
-          //     blurRadius: 7, // blur radius
-          //     offset: Offset(0, 2), // changes position of shadow
-          //     //first paramerter of offset is left-right
-          //     //second parameter is top to down
-          //   ),
-          //   //you can set more BoxShadow() here
-          // ],
+          
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.white,
         ),

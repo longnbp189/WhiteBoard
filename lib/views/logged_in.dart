@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:whiteboard_swd/components/home_search_bar.dart';
 import 'package:whiteboard_swd/models/reviewer.dart';
 import 'package:whiteboard_swd/presenters/google_sign_in.dart';
+import 'package:whiteboard_swd/utils/color.dart';
 import 'package:whiteboard_swd/views/home_campaign_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (value.data != null) {
             return Scaffold(
+              backgroundColor: white_blue_white,
               appBar: AppBar(
                 leadingWidth: 0,
                 bottom: PreferredSize(
@@ -50,6 +52,9 @@ class _HomePageState extends State<HomePage> {
                   universityId: value.data!.universityId!,
                   reviewerId: value.data!.id!,
                   token: value.data!.token!,
+
+                  name: '',
+                  stream: streamController.stream,
                 ),
               ),
             );

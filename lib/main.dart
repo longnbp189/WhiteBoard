@@ -131,10 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       if (message.data['AboutReviewID'] != null) {
         String postId = message.data['AboutReviewID'];
-        var post = await PostRequest.getPostById(postId);
+        //var post = await PostRequest.getPostById(postId);
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PostDetail(
-                  post: post!,
+                  postId: postId,
                 ) //send param using constructor
             ));
       }

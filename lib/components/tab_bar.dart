@@ -12,7 +12,7 @@ class TabbedAppBarDemo extends StatelessWidget {
       length: choices.length,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 90,
+          toolbarHeight: size.height*0.1,
           backgroundColor: Colors.white,
           leadingWidth: 0,
           centerTitle: true,

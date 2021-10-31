@@ -5,6 +5,8 @@ import 'package:whiteboard_swd/views/home_create_post.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getwidget/getwidget.dart';
 
+import 'campaign_post_screen.dart';
+
 class CampaignDetails extends StatelessWidget {
   Campaign campaign;
   String reviewerId;
@@ -170,7 +172,11 @@ class CampaignDetails extends StatelessWidget {
                               size: 15,
                             ),
                             onPressed: () {
-                              //view post in campaign
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CampaignPostsPage(
+                                      campaignId: campaign
+                                          .id) //send param using constructor
+                                  ));
                             },
                           ),
                         ))
@@ -183,10 +189,10 @@ class CampaignDetails extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 animation: true,
                 lineHeight: 7,
-                percentage: (campaignStatus == -1) ? 0 : 0.3,
+                percentage: (campaignStatus == -1) ? 0 : campaign.reviewerJoined!*0.01,
                 backgroundColor: Colors.grey[300]!,
                 progressBarColor:
-                    (campaignStatus >= 0) ? Colors.orange : Colors.lightBlue,
+                    (campaignStatus <= 0) ? Colors.orange : Colors.lightBlue,
               ),
               Container(
                 padding: EdgeInsets.all(20),
@@ -207,7 +213,7 @@ class CampaignDetails extends StatelessWidget {
                                       ' người đã tham gia chiến dịch này.', //number of post
                                   style: TextStyle(
                                       // fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       color: Colors.lightBlue),
                                 ),
                                 // Expanded(child: SizedBox()),
